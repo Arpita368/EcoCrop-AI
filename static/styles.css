@@ -1,0 +1,177 @@
+/* ---------- COLOR PALETTE ---------- */
+:root {
+  --dark-teal: #003135;
+  --deep-sea: #024950;
+  --sunset-coral: #964734;
+  --aqua-blue: #0FA4AF;
+  --sky-mist: #AFDDE5;
+  --white: #ffffff;
+}
+
+/* ---------- GENERAL STYLES ---------- */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--sky-mist);
+  color: var(--dark-teal);
+  line-height: 1.6;
+}
+
+/* ---------- HEADER ---------- */
+header {
+  background-color: var(--dark-teal);
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.logo span {
+  color: var(--aqua-blue);
+}
+
+nav a {
+  color: var(--white);
+  margin-left: 1.2rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: var(--aqua-blue);
+}
+
+/* ---------- HERO SECTION ---------- */
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--deep-sea);
+  color: var(--white);
+  padding: 4rem 2rem;
+}
+
+.hero-text {
+  flex: 1 1 400px;
+  padding: 1rem 2rem;
+}
+
+.hero-text h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: var(--sky-mist);
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  background-color: var(--sunset-coral);
+  color: var(--white);
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: var(--aqua-blue);
+  color: var(--dark-teal);
+}
+
+/* ---------- HERO IMAGE BOX WITH GLOW ---------- */
+.hero-image {
+  flex: 1 1 400px;
+  background: url('https://www.sanjeevanifarms.com/wp-content/uploads/2024/11/Sustainable-Agriculture-1.webp') center/cover; /* 🌿 Replace with your own image */
+  border-radius: 20px;
+  height: 320px;
+  position: relative;
+  overflow: hidden;
+
+  /* ✨ Shadow + Glow Effects */
+  box-shadow:
+    0 0 25px rgba(15, 164, 175, 0.8), /* soft teal glow */
+    0 12px 25px rgba(0, 0, 0, 0.5);   /* subtle dark shadow */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Glow intensifies on hover */
+.hero-image:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 0 40px rgba(15, 164, 175, 0.9),
+    0 16px 35px rgba(0, 0, 0, 0.6);
+}
+
+/* ---------- FEATURES ---------- */
+.features {
+  background-color: var(--sky-mist);
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.features h2 {
+  color: var(--dark-teal);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  background-color: var(--aqua-blue);
+  color: var(--white);
+}
+
+/* ---------- ABOUT ---------- */
+.about {
+  background-color: var(--deep-sea);
+  color: var(--white);
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.about h2 {
+  color: var(--sky-mist);
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  background-color: var(--dark-teal);
+  color: var(--white);
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+}

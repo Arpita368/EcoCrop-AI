@@ -1,0 +1,401 @@
+/* ---------- COLOR PALETTE ---------- */
+:root {
+  --dark-teal: #003135;
+  --deep-sea: #024950;
+  --sunset-coral: #964734;
+  --aqua-blue: #0FA4AF;
+  --sky-mist: #AFDDE5;
+  --white: #ffffff;
+}
+
+/* ---------- GLOBAL ---------- */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--sky-mist);
+  color: var(--dark-teal);
+}
+
+/* ---------- HEADER ---------- */
+header {
+  background-color: var(--dark-teal);
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.logo span {
+  color: var(--aqua-blue);
+}
+
+nav a {
+  color: var(--white);
+  margin-left: 1rem;
+  text-decoration: none;
+}
+
+nav a.active,
+nav a:hover {
+  color: var(--aqua-blue);
+}
+
+/* ---------- MAIN CONTAINER ---------- */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+/* ---------- UPLOAD CARD ---------- */
+.upload-card {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(15, 164, 175, 0.5);
+  width: 350px;
+  text-align: center;
+}
+
+.upload-card h2 {
+  color: var(--deep-sea);
+}
+
+#imageUpload {
+  margin-top: 1rem;
+}
+
+#preview {
+  margin-top: 1rem;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(15, 164, 175, 0.5);
+}
+
+#viewInsightsBtn {
+  background-color: var(--sunset-coral);
+  color: var(--white);
+  border: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 20px;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#viewInsightsBtn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#viewInsightsBtn:hover:not(:disabled) {
+  background-color: var(--aqua-blue);
+  color: var(--dark-teal);
+}
+
+/* ---------- CHATBOT SECTION ---------- */
+.chatbot {
+  background-color: var(--deep-sea);
+  color: var(--white);
+  width: 400px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chatbot h2 {
+  text-align: center;
+  color: var(--sky-mist);
+}
+
+.chat-window {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 1rem;
+  height: 300px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.bot-msg, .user-msg {
+  margin: 0.4rem 0;
+  padding: 0.6rem 1rem;
+  border-radius: 15px;
+  max-width: 80%;
+  line-height: 1.4;
+}
+
+.bot-msg {
+  background-color: var(--aqua-blue);
+  color: var(--dark-teal);
+  align-self: flex-start;
+}
+
+.user-msg {
+  background-color: var(--sunset-coral);
+  color: var(--white);
+  align-self: flex-end;
+}
+
+.chat-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 15px;
+  outline: none;
+}
+
+.chat-input button {
+  background-color: var(--aqua-blue);
+  color: var(--dark-teal);
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.chat-input button:hover {
+  background-color: var(--sunset-coral);
+  color: var(--white);
+}
+
+/* ===== Modal Styles ===== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+  background-color: #fff8f3;
+  margin: auto;
+  padding: 20px;
+  border-radius: 15px;
+  width: 60%;
+  box-shadow: 0 0 30px rgba(220, 20, 60, 0.4);
+}
+
+.close {
+  color: crimson;
+  float: right;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: black;
+}
+
+#modalImage {
+  width: 200px;
+  border-radius: 15px;
+  margin-top: 10px;
+}
+
+#resultText {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+/* ---------- MARKET PRICE FINDER SECTION (FINAL FIXED DESIGN) ---------- */
+/* ---------- MARKET PRICE FINDER SECTION (CLEAN STRUCTURED DESIGN) ---------- */
+.price-section {
+  background-color: var(--white);
+  padding: 2.5rem 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(15, 164, 175, 0.5);
+  width: 380px;
+  min-height: 420px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.price-section h3 {
+  color: var(--deep-sea);
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* form layout */
+.price-section form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* labels */
+.price-section label {
+  text-align: left;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+  color: var(--dark-teal);
+}
+
+/* dropdowns and date inputs */
+.price-section select,
+.price-section input[type="date"] {
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 0.95rem;
+  transition: 0.2s;
+}
+
+.price-section select:focus,
+.price-section input[type="date"]:focus {
+  border-color: var(--aqua-blue);
+  box-shadow: 0 0 5px rgba(15, 164, 175, 0.6);
+}
+
+/* button */
+.price-section button {
+  background-color: var(--sunset-coral);
+  color: var(--white);
+  padding: 0.8rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.price-section button:hover {
+  background-color: var(--aqua-blue);
+  color: var(--dark-teal);
+}
+
+/* responsiveness */
+@media (max-width: 768px) {
+  .price-section {
+    width: 90%;
+  }
+}
+
+/* ===== MODAL STYLE ===== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+}
+
+/* This is your popup box */
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centers it perfectly */
+  background-color: #fff8f5;
+  padding: 30px;
+  border-radius: 16px;
+  width: 60%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  animation: popup 0.3s ease-in-out;
+  scrollbar-width: thin;
+  scrollbar-color: #0FA4AF #f1f1f1;
+  cursor: grab; /* optional if you make it draggable */
+}
+
+
+/* For Chrome, Edge, Safari */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+.modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+.modal-content::-webkit-scrollbar-thumb {
+  background: #0FA4AF;
+  border-radius: 10px;
+}
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #0c858f;
+}
+
+/* Popup animation */
+@keyframes popup {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Close button */
+.close {
+  color: #d94a4a;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.close:hover {
+  color: #a12b2b;
+}
+
+/* Title */
+#resultTitle {
+  font-family: 'Poppins', sans-serif;
+  color: #024950;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+/* Image inside modal */
+#modalImage {
+  width: 250px;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+/* Text inside modal */
+#resultText {
+  color: #012a2d;
+  font-size: 1rem;
+  line-height: 1.7;
+  text-align: justify;
+  font-family: 'Poppins', sans-serif;
+}
