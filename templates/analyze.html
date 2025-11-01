@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoCrop AI | Analyze Crop</title>
+
+  <!-- Fonts and Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='analyze.css') }}">
+</head>
+
+<body>
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="logo">EcoCrop <span>AI</span></div>
+    <nav>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('analyze') }}" class="active">Analyze</a>
+    </nav>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <section class="container">
+    <!-- 🌿 Upload Section -->
+    <div class="upload-card">
+      <h2>🌾 Upload Crop Image</h2>
+      <p>Upload an image of your crop leaf to detect possible diseases.</p>
+
+      <input type="file" id="imageUpload" accept="image/*">
+
+      <!-- ✅ Show default image initially -->
+      <img 
+        id="preview"
+        src="{{ url_for('static', filename='upload_here.png') }}"
+        alt="Upload preview"
+        style="display:block; margin-top:15px; border-radius:12px; width:100%; box-shadow:0 0 20px rgba(15,164,175,0.5); transition:0.4s ease;">
+      
+      <button id="viewInsightsBtn" disabled>View Insights</button>
+    </div>
+
+    <!-- 📊 Market Price Finder Section -->
+    <div class="price-section">
+      <h3>📈 Check Market Prices (Agmarknet)</h3>
+      <form id="priceForm">
+        <label for="commodity">Commodity:</label>
+        <select id="commodity" required>
+          <option value="">-- Select Crop --</option>
+          <option value="24">Potato</option>
+          <option value="23">Tomato</option>
+          <option value="3">Onion</option>
+          <option value="7">Brinjal</option>
+          <option value="9">Chillies (Green)</option>
+          <option value="15">Cabbage</option>
+          <option value="16">Cauliflower</option>
+        </select>
+
+        <label for="state">State:</label>
+        <select id="state" required>
+          <option value="">-- Select State --</option>
+          <option value="MH">Maharashtra</option>
+          <option value="GJ">Gujarat</option>
+          <option value="UP">Uttar Pradesh</option>
+          <option value="MP">Madhya Pradesh</option>
+          <option value="KA">Karnataka</option>
+          <option value="TN">Tamil Nadu</option>
+        </select>
+
+        <label for="dateFrom">Date From:</label>
+        <input type="date" id="dateFrom" required>
+
+        <label for="dateTo">Date To:</label>
+        <input type="date" id="dateTo" required>
+
+        <button type="submit">🔍 View Market Price</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== MODAL FOR AI REPORT ===== -->
+  <div id="resultModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="resultTitle">🌿 Disease Detection Result</h2>
+      <img id="modalImage" alt="Uploaded Image" />
+      <div id="resultBox">
+        <p id="resultText"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== JS Section ===== -->
+  <script>
+    // ===== IMAGE PREVIEW =====
+    const uploadInput = document.getElementById('imageUpload');
+    const previewImg = document.getElementById('preview');
+    const viewInsightsBtn = document.getElementById('viewInsightsBtn');
+
+    uploadInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        previewImg.style.opacity = "0";
+        setTimeout(() => {
+          previewImg.src = URL.createObjectURL(file);
+          previewImg.style.opacity = "1";
+        }, 200);
+        viewInsightsBtn.disabled = false;
+      } else {
+        previewImg.src = "{{ url_for('static', filename='upload_here.png') }}";
+        viewInsightsBtn.disabled = true;
+      }
+    });
+
+    // ===== MODAL CONTROL =====
+    const modal = document.getElementById("resultModal");
+    const closeBtn = document.getElementsByClassName("close")[0];
+    const modalImage = document.getElementById("modalImage");
+    const resultText = document.getElementById("resultText");
+
+    closeBtn.onclick = () => modal.style.display = "none";
+    window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
+
+    // ===== IMAGE ANALYSIS =====
+    viewInsightsBtn.addEventListener('click', async () => {
+      const file = uploadInput.files[0];
+      if (!file) {
+        alert("Please upload an image first!");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const res = await fetch("/analyze_image", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await res.json();
+      if (data.error) {
+        alert(data.error);
+      } else {
+        modal.style.display = "block";
+        modalImage.src = URL.createObjectURL(file);
+
+        // add 2–3 short treatment lines
+        const treatmentTips = `
+          <br><br><strong>Treatments:</strong><br>
+          I. Apply organic fungicides regularly and avoid water stagnation.<br>
+          II. Remove affected leaves to prevent further spread.<br>
+          III. Maintain proper spacing for good air circulation.
+        `;
+
+        resultText.innerHTML = `<strong>Disease:</strong> ${data.disease}<br>
+                                <strong>Confidence:</strong> ${data.confidence}<br><br>
+                                <strong>Report:</strong><br>${data.ai_report}<br><br>
+                                <strong>Recommended Actions:</strong> ${data.recommended_actions}
+                                ${treatmentTips}`;
+      }
+    });
+
+    // ===== MARKET PRICE REDIRECT =====
+    document.getElementById("priceForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const commodity = document.getElementById("commodity").value;
+      const state = document.getElementById("state").value;
+      const dateFrom = document.getElementById("dateFrom").value;
+      const dateTo = document.getElementById("dateTo").value;
+
+      if (!commodity || !state || !dateFrom || !dateTo) {
+        alert("⚠️ Please fill all fields before searching.");
+        return;
+      }
+
+      function formatDate(inputDate) {
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const d = new Date(inputDate);
+        return `${String(d.getDate()).padStart(2, '0')}-${months[d.getMonth()]}-${d.getFullYear()}`;
+      }
+
+      const formattedFrom = formatDate(dateFrom);
+      const formattedTo = formatDate(dateTo);
+      const commodityNames = {
+        "24": "Potato",
+        "23": "Tomato",
+        "3": "Onion",
+        "7": "Brinjal",
+        "9": "Chillies (Green)",
+        "15": "Cabbage",
+        "16": "Cauliflower"
+      };
+
+      const stateNames = {
+        "MH": "Maharashtra",
+        "GJ": "Gujarat",
+        "UP": "Uttar Pradesh",
+        "MP": "Madhya Pradesh",
+        "KA": "Karnataka",
+        "TN": "Tamil Nadu"
+      };
+
+      const commodityName = commodityNames[commodity] || "Unknown";
+      const stateName = stateNames[state] || "Unknown";
+      
+      const url = `https://agmarknet.gov.in/SearchCmmMkt.aspx?Tx_Commodity=${commodity}&Tx_State=${state}&Tx_District=0&Tx_Market=0&DateFrom=${formattedFrom}&DateTo=${formattedTo}&Fr_Date=${formattedFrom}&To_Date=${formattedTo}&Tx_Trend=0&Tx_CommodityHead=${encodeURIComponent(commodityName)}&Tx_StateHead=${encodeURIComponent(stateName)}&Tx_DistrictHead=--Select--&Tx_MarketHead=--Select--`;
+
+      console.log("🔗 Redirecting to:", url);
+      window.open(url, "_blank");
+    });
+  </script>
+</body>
+</html>

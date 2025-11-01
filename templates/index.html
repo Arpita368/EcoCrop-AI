@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoCrop AI</title>
+  <link rel="stylesheet" href="static\styles.css" />
+</head>
+<body>
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="logo">EcoCrop <span>AI</span></div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section id="home" class="hero">
+    <div class="hero-text">
+      <h1>Smart Agriculture,<br> Smarter Future</h1>
+      <p>AI-powered crop disease detection, live market insights, and intelligent advisory for farmers worldwide.</p>
+      <button class="btn" onclick="window.location.href='{{ url_for('analyze') }}'">Explore Now</button>
+    </div>
+    <!-- 🌿 Replace this image path with your own -->
+    <div class="hero-image"></div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section id="features" class="features">
+    <h2>Core Features</h2>
+    <div class="feature-grid">
+      <div class="card">
+        <h3>🌾 AI Disease Detection</h3>
+        <p>Upload crop leaf images to detect diseases instantly with AI precision.</p>
+      </div>
+      <div class="card">
+        <h3>📈 Market Insights</h3>
+        <p>View real-time market prices and graphs from official sources.</p>
+      </div>
+      <div class="card">
+        <h3>📊 Dashboard</h3>
+        <p>Access all reports, insights, and chat history from one place.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="about">
+    <h2>About EcoCrop AI</h2>
+    <p>
+      EcoCrop AI bridges the gap between technology and agriculture by combining Artificial Intelligence,
+      real-time analytics, and smart advisory systems. Our mission is to empower farmers with knowledge,
+      ensuring healthier crops and sustainable farming.
+    </p>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="contact">
+    <p>© 2025 EcoCrop AI | Designed by Arpita Sonparote & Pranali Somwanshi</p>
+  </footer>
+</body>
+</html>
